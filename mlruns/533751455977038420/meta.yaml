@@ -1,0 +1,6 @@
+artifact_location: mlflow-artifacts:/533751455977038420
+creation_time: 1762253963186
+experiment_id: '533751455977038420'
+last_update_time: 1762253963186
+lifecycle_stage: active
+name: retinal_disease_classification

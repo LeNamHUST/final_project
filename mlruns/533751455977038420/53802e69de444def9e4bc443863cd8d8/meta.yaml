@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/533751455977038420/53802e69de444def9e4bc443863cd8d8/artifacts
+end_time: 1762254693505
+entry_point_name: ''
+experiment_id: '533751455977038420'
+lifecycle_stage: active
+run_id: 53802e69de444def9e4bc443863cd8d8
+run_name: retinal_disease_classification
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762254693327
+status: 4
+tags: []
+user_id: namdao
