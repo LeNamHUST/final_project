@@ -1,0 +1,21 @@
+# Bỏ qua thư mục môi trường ảo
+venv/
+ENV/
+env/
+
+# Bỏ qua cache và file biên dịch
+__pycache__/
+*.py[cod]
+
+# Bỏ qua file log, dữ liệu huấn luyện, model
+*.pth
+*.pt
+*.h5
+*.so
+*.dll
+*.bin
+*.log
+
+# Bỏ qua các folder IDE
+.vscode/
+.idea/
