@@ -2,7 +2,7 @@ name: demo workflows
 on:
   push:
     path:
-      - "/tests/test_api.py"
+      - "tests/test_api.py"
 jobs:
   demo_jobs:
     runs-on: ubuntu-latest
@@ -10,6 +10,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Print latest content
-        run: cat /tests/test_api.py
+        run: cat tests/test_api.py
 
 
