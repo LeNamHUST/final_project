@@ -4,7 +4,7 @@ on:
     path:
       - "/home/namdao/projects/final_project/tests/test_api.py"
 jobs:
-  demo jobs:
+  demo_jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
