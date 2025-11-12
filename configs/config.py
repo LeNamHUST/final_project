@@ -32,6 +32,7 @@ LABELS = [
     "normal"
 ]
 
-DATA_DIR = Path("/home/namdao/projects/final_project/data/test/test")
+DATA_DIR = Path("/home/namdao/projects/final_project/data")
 DATA_TRAIN_PATH = "/home/namdao/projects/final_project/data/train/train"
+DATA_TEST_PATH = "/home/namdao/projects/final_project/data/test/test"
 TRAIN_PATH_CSV = "/home/namdao/projects/final_project/data/train.csv"

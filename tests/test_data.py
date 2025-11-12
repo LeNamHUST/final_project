@@ -11,13 +11,14 @@ DATA_DIR = DATA_DIR
 DATA_TRAIN_PATH = DATA_TRAIN_PATH
 TRAIN_PATH_CSV = TRAIN_PATH_CSV
 train_data = pd.read_csv(TRAIN_PATH_CSV)
-train_dataset = RetinalDataset(DATA_TRAIN_PATH, 'train', train_data, (IMAGE_SIZE,IMAGE_SIZE), True)
+filename = train_data["filename"]
+train_dataset = RetinalDataset(DATA_TRAIN_PATH, 'test', train_data, (IMAGE_SIZE,IMAGE_SIZE), True)
 
 @pytest.mark.parametrize("result", train_dataset)
 def test_image(result):
     image, label, image_path = result
     try:
-        print("label:", label.shape)
+        print("label:", image_path)
         assert isinstance(image, torch.Tensor), "image not tensor"
         assert isinstance(label, torch.Tensor), "label not tensor"
         assert label.ndim == 1, "label not ndim 1"
