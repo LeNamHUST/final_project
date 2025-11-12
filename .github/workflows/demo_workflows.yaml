@@ -5,10 +5,10 @@ on:
       - "/home/namdao/projects/final_project/tests/test_api.py"
 jobs:
   demo jobs:
-    runs on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        users: actions/checkout@v3
+        uses: actions/checkout@v3
       - name: Print latest content
         run: cat /home/namdao/projects/final_project/tests/test_api.py
 
