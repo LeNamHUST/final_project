@@ -11,4 +11,4 @@ def test_api():
         assert response.status_code == 200, "loi api"
         json_data = response.json()
         assert "message" in json_data, "api khong tra ra ket qua"
-        assert len(json_data["message"]) > 0, "model khong du doan duoc"
+        assert len(json_data["message"]) > 0, "model khong du doan duoc, xem lai"
