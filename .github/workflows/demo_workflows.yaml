@@ -1,10 +1,10 @@
 name: demo workflows
 on:
   push:
-    path:
+    paths:
       - "tests/test_api.py"
   pull_request:
-    path:
+    paths:
       - "pull_request_test.txt"
 jobs:
   demo_jobs:
