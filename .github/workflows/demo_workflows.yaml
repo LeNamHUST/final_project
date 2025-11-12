@@ -3,6 +3,9 @@ on:
   push:
     path:
       - "tests/test_api.py"
+  pull_request:
+    path:
+      - "pull_request_test.txt"
 jobs:
   demo_jobs:
     runs-on: ubuntu-latest
@@ -10,6 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Print latest content
-        run: cat tests/test_api.py
+        run: |
+          if ["@GITHUB_EVENT_NAME" == "push"]; then 
+            cat tests/test_api.py
+          elif ["@GITHUB_EVENT_NAME" == "pull_request"]; then
+            cat pull_request_test.txt
+          else
+            echo "no event name found"
+            exit 1
+          fi
 
 
