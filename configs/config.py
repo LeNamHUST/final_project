@@ -17,7 +17,7 @@ BATCH_SIZE = 64
 LEARNING_RATE = 0.0001
 LEARNING_RATE_SCHEDULE_FACTOR = 0.1
 LEARNING_RATE_SCHEDULE_PATIENCE = 5
-MAX_EPOCHS = 100
+MAX_EPOCHS = 10
 TRAINING_TIME_OUT = 3600*10
 RANDOM_STATE = 20
 MODEL_PATH = "retinal_best_score.pth"
@@ -32,7 +32,11 @@ LABELS = [
     "normal"
 ]
 
+MODEL_NAME = "retinal_disease_classification"
+MODEL_VERSION = "version-1"
+
 DATA_DIR = Path("/home/namdao/projects/final_project/data")
 DATA_TRAIN_PATH = "/home/namdao/projects/final_project/data/train/train"
 DATA_TEST_PATH = "/home/namdao/projects/final_project/data/test/test"
 TRAIN_PATH_CSV = "/home/namdao/projects/final_project/data/train.csv"
+MLFLOW_TRACKING_URI = os.getenv("OUR_MLFLOW_HOST", "http://localhost:5050")

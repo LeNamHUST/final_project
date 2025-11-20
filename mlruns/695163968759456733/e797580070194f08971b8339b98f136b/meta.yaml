@@ -1,0 +1,14 @@
+artifact_uri: /home/namdao/projects/final_project/mlruns/695163968759456733/e797580070194f08971b8339b98f136b/artifacts
+end_time: 1763653878394
+entry_point_name: ''
+experiment_id: '695163968759456733'
+lifecycle_stage: active
+run_id: e797580070194f08971b8339b98f136b
+run_name: retinal_disease_classification
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763653878142
+status: 4
+tags: []
+user_id: namdao

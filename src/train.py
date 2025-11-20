@@ -15,6 +15,22 @@ from torch.utils.data import Dataset
 from src.models.resnet_model import RetinalResnetModel
 from src.data.pre_processing import RetinalDataset
 from src.utils import *
+from configs.config import *
+
+
+MAX_ITER = MAX_ITER
+IMAGE_SIZE = IMAGE_SIZE
+IMAGENET_MEAN = IMAGENET_MEAN
+IMAGENET_STD = IMAGENET_STD
+BATCH_SIZE = BATCH_SIZE
+LEARNING_RATE = LEARNING_RATE
+LEARNING_RATE_SCHEDULE_FACTOR = LEARNING_RATE_SCHEDULE_FACTOR
+LEARNING_RATE_SCHEDULE_PATIENCE = LEARNING_RATE_SCHEDULE_PATIENCE
+MAX_EPOCHS = MAX_EPOCHS
+TRAINING_TIME_OUT = TRAINING_TIME_OUT
+RANDOM_STATE = RANDOM_STATE
+MODEL_PATH = MODEL_PATH
+model_name = MODEL_NAME
 
 
 mlflow.set_tracking_uri(uri="http://localhost:5000")
@@ -42,19 +58,6 @@ def train():
 
     logging.info("Loading dataset ...")
 
-    MAX_ITER = MAX_ITER
-    IMAGE_SIZE = IMAGE_SIZE
-    IMAGENET_MEAN = IMAGENET_MEAN
-    IMAGENET_STD = IMAGENET_STD
-    BATCH_SIZE = BATCH_SIZE
-    LEARNING_RATE = LEARNING_RATE
-    LEARNING_RATE_SCHEDULE_FACTOR = LEARNING_RATE_SCHEDULE_FACTOR
-    LEARNING_RATE_SCHEDULE_PATIENCE = LEARNING_RATE_SCHEDULE_PATIENCE
-    MAX_EPOCHS = MAX_EPOCHS
-    TRAINING_TIME_OUT = TRAINING_TIME_OUT
-    RANDOM_STATE = RANDOM_STATE
-    MODEL_PATH = MODEL_PATH
-
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     data = pd.read_csv(DATA_PATH)
@@ -75,7 +78,7 @@ def train():
     lr_scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor = LEARNING_RATE_SCHEDULE_FACTOR, patience = LEARNING_RATE_SCHEDULE_PATIENCE, mode = 'max')
 
     logger.info("Training Model ...")
-    with mlflow.start_run(run_name="retinal_disease_classification"):
+    with mlflow.start_run(run_name=model_name) as run:
         mlflow.log_param("max_iter", MAX_ITER)
         mlflow.log_param("learning_rate", LEARNING_RATE)
         mlflow.log_param("random_state", RANDOM_STATE)
@@ -92,15 +95,15 @@ def train():
             logger.info(f"f1 val: {f1_val:.4f}")
             if best_score < f1_val:
                 best_score = f1_val
-                torch.save({"model":model.state_dict(),
-                            "optimizer":optimizer.state_dict(),
-                            "best_score":best_score,
-                            "epoch":epoch,
-                            "lr_scheduler":lr_scheduler.state_dict()},
-                            MODEL_PATH)
                 mlflow.log_metric("f1_train", f1_train)
                 mlflow.log_metric("f1_val", f1_val)
                 mlflow.log_artifact(MODEL_PATH, "artifacts")
+                mlflow.pytorch.log_model(model, "model")
+                model_uri = f"runs:/{run.info.run_id}/model"
+                registered = mlflow.register_model(
+                    model_uri=model_uri,
+                    name=model_name
+                )
             else:
                 no_improve += 1
             if no_improve > 10:

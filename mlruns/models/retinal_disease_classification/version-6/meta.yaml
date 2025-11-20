@@ -1,0 +1,15 @@
+creation_timestamp: 1763656262659
+current_stage: None
+deployment_job_state: null
+description: ''
+last_updated_timestamp: 1763656262659
+model_id: m-64f338746c1742f3a1e98d50e9d42b8f
+name: retinal_disease_classification
+run_id: e1e23ce511b14b0abbd17287a6c5121c
+run_link: ''
+source: models:/m-64f338746c1742f3a1e98d50e9d42b8f
+status: READY
+status_message: null
+storage_location: /home/namdao/projects/final_project/mlruns/695163968759456733/models/m-64f338746c1742f3a1e98d50e9d42b8f/artifacts
+user_id: null
+version: 6
