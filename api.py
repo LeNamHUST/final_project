@@ -1,11 +1,7 @@
 from enum import Enum 
 import uvicorn
-import imghdr
 import torch
 from fastapi import FastAPI, File, UploadFile, HTTPException
-from io import BytesIO
-from PIL import Image
-import torchvision.transforms as transforms
 from pydantic import BaseModel 
 import mlflow
 from mlflow.tracking import MlflowClient
@@ -23,7 +19,6 @@ IMAGENET_MEAN = IMAGENET_MEAN
 IMAGENET_STD = IMAGENET_STD
 labels = LABELS
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
 # PATH_TRAINED_MODEL="/home/namdao/projects/final_project/retina_best_score.pth"
 # model = RetinalResnetModel(num_classes=7).to(device)
 # model.load_state_dict(torch.load(PATH_TRAINED_MODEL, weights_only=False, map_location=device)['model'])

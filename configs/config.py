@@ -33,7 +33,7 @@ LABELS = [
 ]
 
 MODEL_NAME = "retinal_disease_classification"
-MODEL_VERSION = "version-1"
+MODEL_VERSION = "1"
 
 DATA_DIR = Path("/home/namdao/projects/final_project/data")
 DATA_TRAIN_PATH = "/home/namdao/projects/final_project/data/train/train"

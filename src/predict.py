@@ -1,17 +1,24 @@
 import os
-
+import imghdr
+import torch
 import mlflow
 import mlflow.pytorch
 import pandas as pd 
+from PIL import Image
+from io import BytesIO
+import torchvision.transforms as transforms
 from fastapi import APIRouter, FastAPI, File, UploadFile, HTTPException
 
 from configs.config import *
 from src.schemas.response import RetinalDiseaseClassificationResponse
 
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
 MLFLOW_TRACKING_URI = MLFLOW_TRACKING_URI
 print("MLFLOW_TRACKING_URI:", MLFLOW_TRACKING_URI)
 mlflow.set_tracking_uri(uri=MLFLOW_TRACKING_URI)
 
+labels = LABELS
 model_name = MODEL_NAME
 model_version = MODEL_VERSION
 alias = "production"
