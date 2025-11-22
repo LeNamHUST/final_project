@@ -6,6 +6,8 @@ on:
       - 'tests/*'
       - 'requirements.txt'
       - '.github/workflows/test_workflow.yaml'
+      - '.github/workflows/demo_workflow.yaml'
+      - 'pull_request_test.txt'
   push:
     branches:
       - main
@@ -26,4 +28,4 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run tests
-        run: pytest --cov
+        run: pytest tests/ --cov
