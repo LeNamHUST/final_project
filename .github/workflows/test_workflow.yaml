@@ -6,6 +6,7 @@ on:
       - 'tests/*'
       - 'requirements.txt'
       - '.github/workflows/test_workflow.yaml'
+      - '.github/workflows/demo_workflow.yaml'
   push:
     branches:
       - main
