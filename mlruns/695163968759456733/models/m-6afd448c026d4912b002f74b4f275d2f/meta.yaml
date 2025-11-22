@@ -1,0 +1,10 @@
+artifact_location: /home/namdao/projects/final_project/mlruns/695163968759456733/models/m-6afd448c026d4912b002f74b4f275d2f/artifacts
+creation_timestamp: 1763655241576
+experiment_id: '695163968759456733'
+last_updated_timestamp: 1763655248892
+model_id: m-6afd448c026d4912b002f74b4f275d2f
+model_type: ''
+name: model
+source_run_id: 60df13b4791f4428be52117830f26425
+status: 2
+status_message: null
