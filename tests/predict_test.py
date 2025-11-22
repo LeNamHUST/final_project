@@ -1,13 +1,15 @@
 import pytest
+import torch
 from io import BytesIO
 from PIL import Image
 from unittest.mock import MagicMock, patch
 
 @pytest.fixture
 def mock_model():
-    mock_model = MagicMock()
-    mock_model.predict.return_value = ["opacity"]
-    return mock_model
+    _mock_model = MagicMock()
+    _mock_model.predict.return_value = ["opacity"]
+    _mock_model.return_value = torch.tensor([1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0])
+    return _mock_model
 
 @pytest.fixture
 def mock_mlflow(mock_model):
@@ -19,9 +21,9 @@ def mock_mlflow(mock_model):
         yield mock_mlflow_server
 
 def test_get_model(mock_mlflow, mock_model):
-    from src import predict
-    predict._model = None
-    model = predict.get_model()
+    from src.predict import get_model
+    _model = None
+    model = get_model()
     assert model == mock_model
     result = model.predict(None)
     assert result == ["opacity"]
@@ -43,5 +45,6 @@ def test_predict(mock_mlflow, mock_model):
     response = client.post("/retinal/predict",
                         files={"file": ("test.jpg", buf, "image/jpeg")}
                         )
+    
     assert response.status_code == 200
-    print("response:", response.json())
+    print("response:", response)

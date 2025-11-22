@@ -2,7 +2,6 @@ import os
 import imghdr
 import torch
 import mlflow
-import mlflow.pytorch
 import pandas as pd 
 from PIL import Image
 from io import BytesIO
@@ -30,14 +29,9 @@ retinal_router = APIRouter(prefix="/retinal")
 
 def get_model():
     global _model
-    print('model_uri:', model_uri)
     if _model is None:
         _model = mlflow.pytorch.load_model(model_uri)
     return _model
-
-model = get_model()
-
-print('load xong model')
 
 @retinal_router.post("/predict", response_model=RetinalDiseaseClassificationResponse)
 async def func_predict(file: UploadFile = File(...)):
@@ -48,6 +42,7 @@ async def func_predict(file: UploadFile = File(...)):
     if img_type is None or img_type.lower() not in ALLOWED_TYPES:
         raise HTTPException(status_code=400, detail=f"khong ho tro dinh dang")
     try:
+        model = get_model()
         img = Image.open(BytesIO(contents)).convert("RGB")
         img_transformation = transforms.Compose([
             transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
@@ -59,9 +54,11 @@ async def func_predict(file: UploadFile = File(...)):
             img = img.unsqueeze(0)
             img = img.to(device)
             pred = model(img)
+            print('pred:', pred)
             pred = ((pred>0.5)*1).squeeze().tolist()
             print('pred:', pred)
             result = [labels[i] for i, val in enumerate(pred) if val == 1]
     except Exception as err:
-        raise HTTPException(status_code=400, detail=err)
+        print('err:', err)
+        raise HTTPException(status_code=400, detail=str(err))
     return RetinalDiseaseClassificationResponse(retinal_classification=result)
